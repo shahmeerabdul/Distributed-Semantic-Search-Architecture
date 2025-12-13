@@ -17,4 +17,6 @@ No Work Update
 
 
 crwaler->indexer->tf-idf->web html ui
+13/Dec/2025
+TF-IDF idea
 
