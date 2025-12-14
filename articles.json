@@ -7,32 +7,32 @@
     ],
     "articles": [
       {
-        "unique_id": "ddos_001",
-        "timestamp": "2025-12-13T20:10:00Z",
+        "unique_id": "article_1_001",
+        "timestamp": "2025-12-14T19:51:39.357873Z",
         "url": "https://www.cloudflare.com/learning/ddos/what-is-a-ddos-attack/",
-        "title": "What is a distributed denial-of-service (DDoS) attack? | Cloudflare"
+        "title": "Just a moment..."
       },
       {
-        "unique_id": "ddos_002",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.kaspersky.com/resource-center/preemptive-safety/how-does-ddos-attack-work",
-        "title": "Distributed Denial of Service: How DDoS Attacks Work | Kaspersky"
+        "unique_id": "article_1_002",
+        "timestamp": "2025-12-14T19:51:44.982816Z",
+        "url": "https://www.kaspersky.com/resource-center/threats/ddos-attacks/",
+        "title": "What is a DDoS Attack? Definition, Meaning, Types"
       },
       {
-        "unique_id": "ddos_003",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://cmitsolutions.com/blog/what-is-a-ddos-attack/",
-        "title": "What Is a DDoS Attack and How Does It Work? | CMIT Solutions"
+        "unique_id": "article_1_003",
+        "timestamp": "2025-12-14T19:51:47.605579Z",
+        "url": "https://www.fortinet.com/resources/cyberglossary/ddos-attack",
+        "title": "What is a DDoS Attack? DDoS Meaning, Definition & Types | Fortinet"
       },
       {
-        "unique_id": "ddos_004",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.secpod.com/blog/understanding-ddos-attacks-a-comprehensive-guide/",
-        "title": "Understanding DDoS Attacks: A Comprehensive Guide | SecPod"
+        "unique_id": "article_1_004",
+        "timestamp": "2025-12-14T19:51:50.745590Z",
+        "url": "https://www.cisco.com/c/en/us/products/security/ddos-defense/what-is-ddos-attack.html",
+        "title": "404 - Page Not Found - Cisco"
       },
       {
-        "unique_id": "ddos_005",
-        "timestamp": "2025-12-13T20:10:00Z",
+        "unique_id": "article_1_005",
+        "timestamp": "2025-12-14T19:51:54.318888Z",
         "url": "https://www.imperva.com/learn/ddos/ddos-attacks/",
         "title": "DDoS Attack Types & Mitigation Methods | Imperva"
       }
@@ -46,34 +46,34 @@
     ],
     "articles": [
       {
-        "unique_id": "phish_001",
-        "timestamp": "2025-12-13T20:10:00Z",
+        "unique_id": "article_2_001",
+        "timestamp": "2025-12-14T19:51:58.763946Z",
         "url": "https://www.ibm.com/think/topics/phishing",
         "title": "What is Phishing? | IBM"
       },
       {
-        "unique_id": "phish_002",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.bitsight.com/blog/guide-to-phishing",
-        "title": "A Guide to Phishing: Examples, Prevention, & More | Bitsight"
+        "unique_id": "article_2_002",
+        "timestamp": "2025-12-14T19:52:02.098607Z",
+        "url": "https://www.cisco.com/c/en/us/products/security/email-security/what-is-phishing.html",
+        "title": "What Is Phishing? Examples and Phishing Quiz - Cisco"
       },
       {
-        "unique_id": "phish_003",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://guidebooks.google.com/online-security/learn-about-security-threats/what-is-phishing",
-        "title": "What is Phishing? - Guidebooks with Google"
+        "unique_id": "article_2_003",
+        "timestamp": "2025-12-14T19:52:04.990613Z",
+        "url": "https://www.proofpoint.com/us/threat-reference/phishing",
+        "title": "What Is Phishing? - Meaning, Attack Types & More | Proofpoint US"
       },
       {
-        "unique_id": "phish_004",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.staysafeonline.org/articles/phishing",
-        "title": "What Is Phishing and How To Avoid It | Stay Safe Online"
+        "unique_id": "article_2_004",
+        "timestamp": "2025-12-14T19:52:12.471496Z",
+        "url": "https://www.ftc.gov/business-guidance/resources/phishing",
+        "title": "Page not found | Federal Trade Commission"
       },
       {
-        "unique_id": "phish_005",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.cisa.gov/audiences/small-and-medium-businesses/secure-your-business/teach-employees-avoid-phishing",
-        "title": "Teach Employees to Avoid Phishing | CISA"
+        "unique_id": "article_2_005",
+        "timestamp": "2025-12-14T19:52:15.718622Z",
+        "url": "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+        "title": "Recognize and Report Phishing | CISA"
       }
     ]
   },
@@ -85,34 +85,34 @@
     ],
     "articles": [
       {
-        "unique_id": "sqli_001",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://learn.snyk.io/lesson/sql-injection/",
-        "title": "What is SQL injection (SQLi)? | Tutorial & examples - Snyk Learn"
-      },
-      {
-        "unique_id": "sqli_002",
-        "timestamp": "2025-12-13T20:10:00Z",
+        "unique_id": "article_3_001",
+        "timestamp": "2025-12-14T19:52:18.572063Z",
         "url": "https://www.cloudflare.com/learning/security/threats/sql-injection/",
-        "title": "What is SQL injection? | Cloudflare"
+        "title": "Just a moment..."
       },
       {
-        "unique_id": "sqli_003",
-        "timestamp": "2025-12-13T20:10:00Z",
+        "unique_id": "article_3_002",
+        "timestamp": "2025-12-14T19:52:21.325932Z",
         "url": "https://portswigger.net/web-security/sql-injection",
         "title": "What is SQL Injection? Tutorial & Examples | Web Security Academy"
       },
       {
-        "unique_id": "sqli_004",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.blackduck.com/glossary/what-is-sql-injection.html",
-        "title": "What Is SQL Injection and How Does It Work? | Black Duck"
-      },
-      {
-        "unique_id": "sqli_005",
-        "timestamp": "2025-12-13T20:10:00Z",
+        "unique_id": "article_3_003",
+        "timestamp": "2025-12-14T19:52:23.838663Z",
         "url": "https://owasp.org/www-community/attacks/SQL_Injection",
         "title": "SQL Injection | OWASP Foundation"
+      },
+      {
+        "unique_id": "article_3_004",
+        "timestamp": "2025-12-14T19:52:27.553072Z",
+        "url": "https://www.acunetix.com/websitesecurity/sql-injection/",
+        "title": "What is SQL Injection (SQLi) and How to Prevent Attacks"
+      },
+      {
+        "unique_id": "article_3_005",
+        "timestamp": "2025-12-14T19:52:31.181121Z",
+        "url": "https://www.imperva.com/learn/application-security/sql-injection-sqli/",
+        "title": "What is SQL Injection | SQLI Attack Example & Prevention Methods | Imperva"
       }
     ]
   },
@@ -124,34 +124,34 @@
     ],
     "articles": [
       {
-        "unique_id": "mal_001",
-        "timestamp": "2025-12-13T20:10:00Z",
+        "unique_id": "article_4_001",
+        "timestamp": "2025-12-14T19:52:34.049662Z",
         "url": "https://www.malwarebytes.com/malware",
-        "title": "What is Malware? Definition, Types and Protection | Malwarebytes"
+        "title": "What is Malware? Malware Definition, Types and Protection"
       },
       {
-        "unique_id": "mal_002",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.titanfile.com/blog/types-of-computer-malware/",
-        "title": "The Comprehensive Guide to 12 Types of Malware | TitanFile"
+        "unique_id": "article_4_002",
+        "timestamp": "2025-12-14T19:52:41.841166Z",
+        "url": "https://www.kaspersky.com/resource-center/threats/malware",
+        "title": "Internet Security Threats | Online Safety Tips | Kaspersky"
       },
       {
-        "unique_id": "mal_003",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.wallarm.com/what/malware-types-and-detection",
-        "title": "What is Malware? Types and Examples | Wallarm"
+        "unique_id": "article_4_003",
+        "timestamp": "2025-12-14T19:52:44.829564Z",
+        "url": "https://www.crowdstrike.com/cybersecurity-101/malware/",
+        "title": "What is Malware? 18 Prevention Tips & More | CrowdStrike"
       },
       {
-        "unique_id": "mal_004",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.mcafee.com/support/s/article/000001575?language=en_US",
-        "title": "Differences between viruses, ransomware, worms, and trojans | McAfee"
+        "unique_id": "article_4_004",
+        "timestamp": "2025-12-14T19:52:48.113723Z",
+        "url": "https://www.cisco.com/c/en/us/products/security/advanced-malware-protection/what-is-malware.html",
+        "title": "What Is Malware? - Definition and Examples - Cisco"
       },
       {
-        "unique_id": "mal_005",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.dell.com/support/kbdoc/en-pk/000132699/what-are-the-different-types-of-viruses-spyware-and-malware-that-can-infect-my-computer",
-        "title": "What Are the Different Types of Viruses, Spyware and Malware? | Dell"
+        "unique_id": "article_4_005",
+        "timestamp": "2025-12-14T19:52:52.382493Z",
+        "url": "https://www.microsoft.com/en-us/security/business/security-101/what-is-malware",
+        "title": "What Is Malware? Definition and Types | Microsoft Security"
       }
     ]
   },
@@ -163,34 +163,34 @@
     ],
     "articles": [
       {
-        "unique_id": "fw_001",
-        "timestamp": "2025-12-13T20:10:00Z",
+        "unique_id": "article_5_001",
+        "timestamp": "2025-12-14T19:52:58.938767Z",
         "url": "https://www.fortinet.com/resources/cyberglossary/firewall",
         "title": "What Is a Firewall? Definition and Types of Firewall | Fortinet"
       },
       {
-        "unique_id": "fw_002",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.kaspersky.com/resource-center/definitions/firewall",
-        "title": "What is a firewall? Definition and explanation | Kaspersky"
+        "unique_id": "article_5_002",
+        "timestamp": "2025-12-14T19:53:02.053792Z",
+        "url": "https://www.cisco.com/c/en/us/products/security/firewalls/what-is-a-firewall.html",
+        "title": "What Is a Firewall? - Cisco"
       },
       {
-        "unique_id": "fw_003",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://en.wikipedia.org/wiki/Firewall_(computing)",
-        "title": "Firewall (computing) - Wikipedia"
+        "unique_id": "article_5_003",
+        "timestamp": "2025-12-14T19:53:09.276940Z",
+        "url": "https://www.paloaltonetworks.com/cyberpedia/what-is-a-firewall",
+        "title": "What Is a Firewall? [Definition & Explanation] - Palo Alto Networks"
       },
       {
-        "unique_id": "fw_004",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.checkpoint.com/cyber-hub/network-security/what-is-firewall/5-types-of-firewalls-which-one-do-you-need/",
-        "title": "5 Types of Firewalls: Which One Do You Need? | Check Point"
+        "unique_id": "article_5_004",
+        "timestamp": "2025-12-14T19:53:12.448000Z",
+        "url": "https://www.checkpoint.com/cyber-hub/network-security/what-is-firewall/",
+        "title": "What is a Firewall? The Different Types of Firewalls - Check Point Software"
       },
       {
-        "unique_id": "fw_005",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.geeksforgeeks.org/computer-networks/types-of-network-firewall/",
-        "title": "Types of Network Firewall | GeeksforGeeks"
+        "unique_id": "article_5_005",
+        "timestamp": "2025-12-14T19:53:14.326199Z",
+        "url": "https://www.cloudflare.com/learning/security/what-is-a-firewall/",
+        "title": "Just a moment..."
       }
     ]
   },
@@ -202,34 +202,34 @@
     ],
     "articles": [
       {
-        "unique_id": "enc_001",
-        "timestamp": "2025-12-13T20:10:00Z",
+        "unique_id": "article_6_001",
+        "timestamp": "2025-12-14T19:53:15.871512Z",
         "url": "https://www.cloudflare.com/learning/ssl/what-is-encryption/",
-        "title": "What is encryption? | Cloudflare"
+        "title": "Just a moment..."
       },
       {
-        "unique_id": "enc_002",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://us.norton.com/blog/privacy/what-is-encryption",
-        "title": "What is encryption? How it works + types of encryption | Norton"
+        "unique_id": "article_6_002",
+        "timestamp": "2025-12-14T19:53:23.623138Z",
+        "url": "https://www.kaspersky.com/resource-center/definitions/encryption",
+        "title": "What is Data Encryption?"
       },
       {
-        "unique_id": "enc_003",
-        "timestamp": "2025-12-13T20:10:00Z",
+        "unique_id": "article_6_003",
+        "timestamp": "2025-12-14T19:53:26.731355Z",
         "url": "https://cloud.google.com/learn/what-is-encryption",
         "title": "What is encryption and how does it work? | Google Cloud"
       },
       {
-        "unique_id": "enc_004",
-        "timestamp": "2025-12-13T20:10:00Z",
+        "unique_id": "article_6_004",
+        "timestamp": "2025-12-14T19:53:31.049121Z",
         "url": "https://www.ibm.com/think/topics/encryption",
         "title": "What is encryption? | IBM"
       },
       {
-        "unique_id": "enc_005",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://preyproject.com/blog/types-of-encryption-symmetric-or-asymmetric-rsa-or-aes",
-        "title": "Symmetric vs asymmetric encryption: when to use each | Prey Project"
+        "unique_id": "article_6_005",
+        "timestamp": "2025-12-14T19:53:34.575254Z",
+        "url": "https://www.cisco.com/c/en/us/products/security/encryption-explained.html",
+        "title": "What Is Encryption? Explanation and Types - Cisco"
       }
     ]
   },
@@ -241,34 +241,34 @@
     ],
     "articles": [
       {
-        "unique_id": "2fa_001",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/about-two-factor-authentication",
-        "title": "About two-factor authentication | GitHub Docs"
+        "unique_id": "article_7_001",
+        "timestamp": "2025-12-14T19:53:38.681933Z",
+        "url": "https://authy.com/what-is-2fa/",
+        "title": "What Is Two-Factor Authentication (2FA)? - Authy | Authy"
       },
       {
-        "unique_id": "2fa_002",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.oloid.com/blog/uses-of-two-factor-authentication",
-        "title": "What is Two-Factor Authentication (2FA): A Complete Guide | OLOID"
+        "unique_id": "article_7_002",
+        "timestamp": "2025-12-14T19:53:41.305364Z",
+        "url": "https://www.cisa.gov/secure-our-world/turn-mfa",
+        "title": "Turn On MFA | CISA"
       },
       {
-        "unique_id": "2fa_003",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.eset.com/blog/en/what-is/what-is-2fa-how-it-works/",
-        "title": "What is 2FA, how it works, and why it matters | ESET"
+        "unique_id": "article_7_003",
+        "timestamp": "2025-12-14T19:53:43.499788Z",
+        "url": "https://www.microsoft.com/en-us/security/business/security-101/what-is-two-factor-authentication-2fa",
+        "title": "What Is Two-Factor Authentication (2FA)? | Microsoft Security"
       },
       {
-        "unique_id": "2fa_004",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.twilio.com/docs/glossary/what-is-two-factor-authentication-2fa",
-        "title": "What is Two Factor Authentication? | Twilio"
+        "unique_id": "article_7_004",
+        "timestamp": "2025-12-14T19:53:47.002454Z",
+        "url": "https://www.onelogin.com/learn/what-is-mfa",
+        "title": "What is Multi-Factor Authentication (MFA)? | OneLogin"
       },
       {
-        "unique_id": "2fa_005",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.mcafee.com/learn/the-importance-of-two-factor-authentication-to-your-security/",
-        "title": "The Importance of Two-Factor Authentication to Your Security | McAfee"
+        "unique_id": "article_7_005",
+        "timestamp": "2025-12-14T19:53:48.880076Z",
+        "url": "https://auth0.com/intro-to-iam/what-is-two-factor-authentication-2fa",
+        "title": "Not found - Auth0"
       }
     ]
   },
@@ -280,34 +280,34 @@
     ],
     "articles": [
       {
-        "unique_id": "cld_001",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.citrix.com/glossary/what-is-cloud-security.html",
-        "title": "What is Cloud Security? | Citrix"
+        "unique_id": "article_8_001",
+        "timestamp": "2025-12-14T19:53:52.799016Z",
+        "url": "https://www.ibm.com/think/topics/cloud-security",
+        "title": "What is Cloud Security? | IBM"
       },
       {
-        "unique_id": "cld_002",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.kaspersky.com/resource-center/definitions/what-is-cloud-security",
-        "title": "What is Cloud Security? Types, Risks, and Solutions | Kaspersky"
+        "unique_id": "article_8_002",
+        "timestamp": "2025-12-14T19:53:55.695079Z",
+        "url": "https://www.microsoft.com/en-us/security/business/security-101/what-is-cloud-security",
+        "title": "What Is Cloud Security? | Microsoft Security"
       },
       {
-        "unique_id": "cld_003",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.freecodecamp.org/news/learn-cloud-security-fundamentals-in-aws-a-guide-for-beginners/",
-        "title": "Learn Cloud Security Fundamentals in AWS | freeCodeCamp"
+        "unique_id": "article_8_003",
+        "timestamp": "2025-12-14T19:53:58.933351Z",
+        "url": "https://cloud.google.com/learn/what-is-cloud-security",
+        "title": "What Is Cloud Security? | Google Cloud"
       },
       {
-        "unique_id": "cld_004",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://blog.trace3.com/understanding-cloud-security-what-it-is-and-why-it-matters",
-        "title": "Understanding Cloud Security: What It Is and Why It Matters | Trace3"
+        "unique_id": "article_8_004",
+        "timestamp": "2025-12-14T19:54:02.285779Z",
+        "url": "https://www.cisco.com/c/en/us/products/security/what-is-cloud-security.html",
+        "title": "404 - Page Not Found - Cisco"
       },
       {
-        "unique_id": "cld_005",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.wiz.io/academy/cloud-security/cloud-security-best-practices",
-        "title": "Cloud Security Best Practices | Wiz"
+        "unique_id": "article_8_005",
+        "timestamp": "2025-12-14T19:54:04.698684Z",
+        "url": "https://www.crowdstrike.com/cybersecurity-101/cloud-security/",
+        "title": "What Is Cloud Security? Best Practices and Strategies | CrowdStrike"
       }
     ]
   },
@@ -319,34 +319,34 @@
     ],
     "articles": [
       {
-        "unique_id": "iot_001",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.kaspersky.com/resource-center/preemptive-safety/best-practices-for-iot-security",
-        "title": "Internet of Things security challenges and best practices | Kaspersky"
+        "unique_id": "article_9_001",
+        "timestamp": "2025-12-14T19:54:11.623847Z",
+        "url": "https://www.kaspersky.com/resource-center/definitions/what-is-iot-security",
+        "title": "The Latest Internet Security and Virus Definitions | Kaspersky"
       },
       {
-        "unique_id": "iot_002",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.digitalmatter.com/blog/iot-security-challenges-and-solutions-for-businesses",
-        "title": "IoT Security: Challenges and Solutions for Businesses | Digital Matter"
-      },
-      {
-        "unique_id": "iot_003",
-        "timestamp": "2025-12-13T20:10:00Z",
+        "unique_id": "article_9_002",
+        "timestamp": "2025-12-14T19:54:15.025708Z",
         "url": "https://www.fortinet.com/resources/cyberglossary/iot-security",
-        "title": "What Is IoT Security? Challenges and Requirements | Fortinet"
+        "title": "What is IoT Security? Definition and Challenges of IoT Security | Fortinet"
       },
       {
-        "unique_id": "iot_004",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://deepstrike.io/blog/iot-hacking-statistics",
-        "title": "IoT Hacking Statistics 2025: Threats, Risks & Regulations | DeepStrike"
+        "unique_id": "article_9_003",
+        "timestamp": "2025-12-14T19:54:18.278378Z",
+        "url": "https://www.paloaltonetworks.com/cyberpedia/what-is-iot-security",
+        "title": "What Is IoT Security? Internet of Things Network Security - Palo Alto Networks"
       },
       {
-        "unique_id": "iot_005",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://ajprotech.com/blog/consumer-electronics/top-10-vulnerabilities-and-risks-in-iot-device-security.html",
-        "title": "Top 10 Vulnerabilities and Risks in IoT Device Security | AJProTech"
+        "unique_id": "article_9_004",
+        "timestamp": "2025-12-14T19:54:21.334173Z",
+        "url": "https://www.cisco.com/c/en/us/solutions/internet-of-things/iot-security.html",
+        "title": "OT/ICS and Industrial IoT Security - Cisco"
+      },
+      {
+        "unique_id": "article_9_005",
+        "timestamp": "2025-12-14T19:54:22.850966Z",
+        "url": "https://www.cloudflare.com/learning/security/what-is-iot-security/",
+        "title": "Just a moment..."
       }
     ]
   },
@@ -358,34 +358,34 @@
     ],
     "articles": [
       {
-        "unique_id": "basic_001",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.ftc.gov/system/files/attachments/cybersecurity-small-business/cybersecuirty_sb_factsheets_all.pdf",
-        "title": "CYBERSECURITY BASICS | FTC"
+        "unique_id": "article_10_001",
+        "timestamp": "2025-12-14T19:54:25.681146Z",
+        "url": "https://www.cisco.com/c/en/us/products/security/what-is-cybersecurity.html",
+        "title": "What is cybersecurity? - Cisco"
       },
       {
-        "unique_id": "basic_002",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://us.norton.com/blog/how-to/cybersecurity-basics",
-        "title": "Cybersecurity basics for beginners: A guide | Norton"
+        "unique_id": "article_10_002",
+        "timestamp": "2025-12-14T19:54:29.194385Z",
+        "url": "https://www.cisa.gov/cybersecurity",
+        "title": "Cybersecurity Best Practices | Cybersecurity and Infrastructure Security Agency CISA"
       },
       {
-        "unique_id": "basic_003",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://www.geeksforgeeks.org/ethical-hacking/cyber-security-tutorial/",
-        "title": "Cyber Security Tutorial | GeeksforGeeks"
+        "unique_id": "article_10_003",
+        "timestamp": "2025-12-14T19:54:32.382165Z",
+        "url": "https://www.fortinet.com/resources/cyberglossary/cybersecurity",
+        "title": "Cybersecurity Cyberglossary Category page | Fortinet"
       },
       {
-        "unique_id": "basic_004",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://jbs.live/top-10-cyber-security-threats-every-business-should-prepare-for-in-2025/",
-        "title": "Top 10 Cyber Security Threats Every Business Should Prepare for in 2025 | JBS"
+        "unique_id": "article_10_004",
+        "timestamp": "2025-12-14T19:54:35.342031Z",
+        "url": "https://www.ibm.com/think/topics/cybersecurity",
+        "title": "What Is Cybersecurity? | IBM"
       },
       {
-        "unique_id": "basic_005",
-        "timestamp": "2025-12-13T20:10:00Z",
-        "url": "https://medium.com/@mvspavs/top-10-cybersecurity-threats-everyone-should-know-in-2025-b37350f33c68",
-        "title": "Top 10 Cybersecurity Threats Everyone Should Know in 2025 | Medium"
+        "unique_id": "article_10_005",
+        "timestamp": "2025-12-14T19:54:39.447026Z",
+        "url": "https://www.microsoft.com/en-us/security/business/security-101/what-is-cybersecurity",
+        "title": "What is Cybersecurity? Key Concepts Explained | Microsoft Security"
       }
     ]
   }
