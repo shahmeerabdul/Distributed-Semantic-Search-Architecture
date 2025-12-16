@@ -22,7 +22,7 @@ class SimpleCrawler:
             if soup.title:
                 title = soup.title.string.strip()
             
-            # Get content - simple approach
+            # Get content 
             # Remove scripts and styles
             for script in soup(["script", "style"]):
                 script.decompose()
@@ -64,7 +64,7 @@ class SimpleCrawler:
                 "timestamp": datetime.utcnow().isoformat() + 'Z',
                 "url": url,
                 "title": title,
-                "content": content  # <-- Content is added here
+                "content": content  
             }
             
             topic_data["articles"].append(article)
