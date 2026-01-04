@@ -2,7 +2,7 @@ name: DSA Search Engine CI
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ "main", "master", "enhance/ci-pl" ]
   pull_request:
     branches: [ "main", "master" ]
 
@@ -25,4 +25,4 @@ jobs:
         
     - name: Run Tests
       run: |
-        python -m unittest discover -p "test_*.py"
+        pytest
