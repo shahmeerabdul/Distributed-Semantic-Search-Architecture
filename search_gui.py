@@ -15,124 +15,75 @@ ctk.set_appearance_mode("light")
 ctk.set_default_color_theme("blue")
 
 class ResultCard(ctk.CTkFrame):
-    """Modern result card widget with perfect UX"""
+    """Modern result card widget matching Google/Bing aesthetic"""
     def __init__(self, parent, article, score, index, click_callback):
-        super().__init__(parent, corner_radius=12, fg_color="white", border_width=1, border_color="#e0e0e0")
+        super().__init__(parent, fg_color="transparent", corner_radius=0)
         self.article = article
         self.click_callback = click_callback
-        self.original_bg = "white"
-        
         
         self.grid_columnconfigure(0, weight=1)
-        self.configure(width=800)  
+        self.configure(width=600)  
         
-      
-        index_label = ctk.CTkLabel(
-            self,
-            text=str(index),
-            font=ctk.CTkFont(size=14, weight="bold"),
-            fg_color="#4285f4",
-            text_color="white",
-            width=35,
-            height=35,
-            corner_radius=17
+        # URL Frame (Favicon placeholder + Site Name + URL)
+        url_frame = ctk.CTkFrame(self, fg_color="transparent")
+        url_frame.grid(row=0, column=0, sticky="w", pady=(0, 5))
+        
+        # Simplified "Favicon" (Circle)
+        favicon = ctk.CTkLabel(
+            url_frame,
+            text="",
+            width=26,
+            height=26,
+            fg_color="#f1f3f4",
+            corner_radius=13
         )
-        index_label.grid(row=0, column=0, sticky="w", padx=20, pady=(20, 10))
+        favicon.pack(side="left", padx=(0, 10))
         
-      
+        # Site Name / URL
+        site_name = ctk.CTkLabel(
+            url_frame,
+            text=article.url.split('/')[2] if '//' in article.url else "Website",
+            font=ctk.CTkFont(size=14, weight="normal"),
+            text_color="#202124"
+        )
+        site_name.pack(side="left", padx=(0, 5))
+        
+        url_text = ctk.CTkLabel(
+            url_frame,
+            text=article.url,
+            font=ctk.CTkFont(size=12),
+            text_color="#5f6368"
+        )
+        url_text.pack(side="left")
+
+        # Title (Blue link style)
         title_label = ctk.CTkLabel(
             self,
             text=article.title,
-            font=ctk.CTkFont(size=18, weight="bold"),
+            font=ctk.CTkFont(family="Arial", size=20, weight="normal"),
             text_color="#1a0dab",
             anchor="w",
             cursor="hand2",
-            wraplength=800
+            wraplength=600
         )
-        title_label.grid(row=0, column=0, sticky="ew", padx=(70, 20), pady=(20, 5))
+        title_label.grid(row=1, column=0, sticky="ew", pady=(0, 2))
         title_label.bind("<Button-1>", lambda e: self._on_click())
+        title_label.bind("<Enter>", lambda e: title_label.configure(font=ctk.CTkFont(family="Arial", size=20, underline=True)))
+        title_label.bind("<Leave>", lambda e: title_label.configure(font=ctk.CTkFont(family="Arial", size=20, underline=False)))
         
-        # URL with copy functionality
-        url_frame = ctk.CTkFrame(self, fg_color="transparent")
-        url_frame.grid(row=1, column=0, sticky="ew", padx=(70, 20), pady=(0, 5))
-        url_frame.grid_columnconfigure(0, weight=1)
-        
-        url_label = ctk.CTkLabel(
-            url_frame,
-            text=article.url,
-            font=ctk.CTkFont(size=14),
-            text_color="#006621",
-            anchor="w",
-            cursor="hand2"
-        )
-        url_label.grid(row=0, column=0, sticky="w")
-        url_label.bind("<Button-1>", lambda e: self._on_click())
-        
-        # Copy button (appears on hover)
-        self.copy_btn = ctk.CTkButton(
-            url_frame,
-            text="📋",
-            width=30,
-            height=25,
-            fg_color="transparent",
-            hover_color="#f0f0f0",
-            command=lambda: self._copy_url(),
-            font=ctk.CTkFont(size=12)
-        )
-        self.copy_btn.grid(row=0, column=1, padx=(5, 0))
-        self.copy_btn.grid_remove()  # Hidden by default
-        
-        # Snippet with better formatting
-        snippet_text = article.content[:250] + "..." if len(article.content) > 250 else article.content
+        # Snippet
+        snippet_text = article.content[:200] + "..." if len(article.content) > 200 else article.content
         snippet_label = ctk.CTkLabel(
             self,
             text=snippet_text,
-            font=ctk.CTkFont(size=14),
-            text_color="#545454",
+            font=ctk.CTkFont(family="Arial", size=14),
+            text_color="#4d5156",
             anchor="w",
             justify="left",
-            wraplength=800
+            wraplength=600
         )
-        snippet_label.grid(row=2, column=0, sticky="ew", padx=(70, 20), pady=(0, 10))
-        
-        # Metadata with relevance indicator
-        relevance_color = "#34a853" if score > 0.1 else "#fbbc04" if score > 0.05 else "#ea4335"
-        meta_label = ctk.CTkLabel(
-            self,
-            text=f"{article.topic} • Relevance: {score:.4f}",
-            font=ctk.CTkFont(size=12),
-            text_color="#808080",
-            anchor="w"
-        )
-        meta_label.grid(row=3, column=0, sticky="ew", padx=(70, 20), pady=(0, 20))
-        
-        # Store widgets for hover effects
-        self.url_frame = url_frame
-        self.url_label = url_label
-        
-        # Hover effect
-        self.bind("<Enter>", self._on_enter)
-        self.bind("<Leave>", self._on_leave)
-        for widget in [title_label, url_label, snippet_label]:
-            widget.bind("<Enter>", self._on_enter)
-            widget.bind("<Leave>", self._on_leave)
-    
-    def _on_enter(self, event):
-        self.configure(fg_color="#f8f9fa", border_color="#4285f4", border_width=2)
-        self.copy_btn.grid()  # Show copy button on hover
-    
-    def _on_leave(self, event):
-        self.configure(fg_color="white", border_color="#e0e0e0", border_width=1)
-        self.copy_btn.grid_remove()  # Hide copy button
-    
-    def _copy_url(self):
-        """Copy URL to clipboard"""
-        self.master.clipboard_clear()
-        self.master.clipboard_append(self.article.url)
-        # Show feedback
-        self.copy_btn.configure(text="✓", fg_color="#34a853")
-        self.after(1000, lambda: self.copy_btn.configure(text="📋", fg_color="transparent"))
-    
+        snippet_label.grid(row=2, column=0, sticky="ew", pady=(0, 15))
+
     def _on_click(self):
         if self.click_callback:
             self.click_callback(self.article)
@@ -191,16 +142,24 @@ class SearchEngineGUI:
     
     def _show_loading_screen(self):
         """Show loading screen while indexing"""
-        self.loading_label.configure(text="Indexing articles... Please wait")
-        self.progress_bar.start()
+        if hasattr(self, 'loading_label'):
+            self.loading_label.configure(text="Indexing articles... Please wait")
+        
+        if hasattr(self, 'home_progress_bar'):
+            self.home_progress_bar.pack(pady=(10, 0))
+            self.home_progress_bar.start()
     
     def _on_indexing_complete(self):
         """Called when indexing is complete"""
-        self.progress_bar.stop()
-        self.loading_label.configure(text="Ready to search! Press Ctrl+K to focus search")
+        if hasattr(self, 'home_progress_bar'):
+            self.home_progress_bar.stop()
+            self.home_progress_bar.pack_forget()
+        
+        if hasattr(self, 'loading_label'):
+             self.loading_label.configure(text="")
+             
         self.search_entry.configure(state="normal")
-        self.compact_search_entry.configure(state="normal")
-        self.search_button.configure(state="normal")
+        self.header_entry.configure(state="normal")
         # Load suggestions
         self._load_suggestions()
     
@@ -242,333 +201,323 @@ class SearchEngineGUI:
         return "break"
     
     def _create_widgets(self):
-        """Create modern CustomTkinter widgets"""
+        """Create modern SearchEngine Dashboard widgets"""
         # Main container
-        main_container = ctk.CTkFrame(self.root, fg_color="transparent")
-        main_container.pack(fill="both", expand=True, padx=0, pady=0)
-        main_container.grid_columnconfigure(0, weight=1)
-        
-        # Top navigation bar
-        nav_bar = ctk.CTkFrame(main_container, height=70, corner_radius=0, fg_color="white")
-        nav_bar.pack(fill="x", padx=0, pady=0)
-        nav_bar.grid_columnconfigure(1, weight=1)
-        
-        # Logo with status
+        self.main_container = ctk.CTkFrame(self.root, fg_color="#f8f9fa") # Light gray background
+        self.main_container.pack(fill="both", expand=True)
+        self.main_container.grid_columnconfigure(0, weight=1)
+        self.main_container.grid_rowconfigure(0, weight=1)
+
+        # ==================== HOME PAGE ====================
+        self.home_frame = ctk.CTkFrame(self.main_container, fg_color="#ffffff")
+        self.home_frame.grid(row=0, column=0, sticky="nsew")
+        self.home_frame.grid_columnconfigure(0, weight=1)
+        # Row 0: Nav, Row 1: Spacer, Row 2: Search, Row 3: Trending, Row 4: Spacer
+        self.home_frame.grid_rowconfigure(0, weight=0) # Nav
+        self.home_frame.grid_rowconfigure(1, weight=1) # Top Spacer
+        self.home_frame.grid_rowconfigure(4, weight=2) # Bottom Spacer
+
+        # --- Top Navigation Bar ---
+        nav_bar = ctk.CTkFrame(self.home_frame, fg_color="transparent", height=60)
+        nav_bar.grid(row=0, column=0, sticky="ew", padx=40, pady=20)
+        nav_bar.grid_columnconfigure(1, weight=1) # Spacer between left and right
+
+        # Logo (Saturn Icon + Text)
         logo_frame = ctk.CTkFrame(nav_bar, fg_color="transparent")
-        logo_frame.grid(row=0, column=0, padx=30, pady=20, sticky="w")
+        logo_frame.grid(row=0, column=0, sticky="w")
         
-        logo_label = ctk.CTkLabel(
+        logo_icon = ctk.CTkLabel(
+            logo_frame, 
+            text="🪐", 
+            font=ctk.CTkFont(size=28),
+            text_color="#6366f1" # Indigo-ish
+        )
+        logo_icon.pack(side="left", padx=(0, 10))
+        
+        logo_text = ctk.CTkLabel(
             logo_frame,
-            text="DSA Search",
-            font=ctk.CTkFont(size=24, weight="bold"),
-            text_color="#5f6368"
+            text="SearchEngine",
+            font=ctk.CTkFont(family="Arial", size=20, weight="bold"),
+            text_color="#1f2937"
         )
-        logo_label.pack(side="left", padx=(0, 15))
+        logo_text.pack(side="left")
+
+        # Center Nav Links
+        nav_links_frame = ctk.CTkFrame(nav_bar, fg_color="transparent")
+        nav_links_frame.place(relx=0.5, rely=0.5, anchor="center")
         
-        # Status indicator
-        self.status_indicator = ctk.CTkLabel(
-            logo_frame,
-            text="●",
-            font=ctk.CTkFont(size=12),
-            text_color="#34a853"
+        for link in ["Images", "Videos", "Shopping", "News"]:
+            btn = ctk.CTkButton(
+                nav_links_frame,
+                text=link,
+                fg_color="transparent",
+                text_color="#4b5563",
+                font=ctk.CTkFont(size=15),
+                hover_color="#f3f4f6",
+                width=80
+            )
+            btn.pack(side="left", padx=5)
+
+        # Right Profile
+        profile_frame = ctk.CTkFrame(nav_bar, fg_color="transparent")
+        profile_frame.grid(row=0, column=2, sticky="e")
+        
+        # Profile Pic (Circle Placeholder using Label with corner radius workaround or just simple unicode)
+        profile_pic = ctk.CTkLabel(
+            profile_frame,
+            text="👤", 
+            font=ctk.CTkFont(size=20),
+            width=40,
+            height=40,
+            fg_color="#e0e7ff",
+            text_color="#4338ca",
+            corner_radius=20
         )
-        self.status_indicator.pack(side="left")
+        profile_pic.pack(side="left", padx=(0, 10))
         
-        # Navigation buttons (Back/Forward) - using Queue and Stack
-        nav_buttons_frame = ctk.CTkFrame(nav_bar, fg_color="transparent")
-        nav_buttons_frame.grid(row=0, column=1, padx=20, pady=20, sticky="w")
-        
-        # Back button
-        self.back_button = ctk.CTkButton(
-            nav_buttons_frame,
-            text="◀ Back",
-            command=self._navigate_back,
-            font=ctk.CTkFont(size=12, weight="bold"),
-            width=80,
-            height=30,
-            fg_color="#f1f3f4",
-            hover_color="#e8eaed",
-            text_color="#5f6368",
-            state="disabled"
+        profile_name = ctk.CTkLabel(
+            profile_frame,
+            text="Sofia Perez",
+            font=ctk.CTkFont(size=14, weight="bold"),
+            text_color="#1f2937"
         )
-        self.back_button.pack(side="left", padx=(0, 5))
+        profile_name.pack(side="left")
         
-        # Forward button
-        self.forward_button = ctk.CTkButton(
-            nav_buttons_frame,
-            text="Forward ▶",
-            command=self._navigate_forward,
-            font=ctk.CTkFont(size=12, weight="bold"),
-            width=80,
-            height=30,
-            fg_color="#f1f3f4",
-            hover_color="#e8eaed",
-            text_color="#5f6368",
-            state="disabled"
+        arrow = ctk.CTkLabel(
+            profile_frame,
+            text="⌄",
+            font=ctk.CTkFont(size=14, weight="bold"),
+            text_color="#6b7280"
         )
-        self.forward_button.pack(side="left")
-        
-        # Keyboard shortcut hint
-        shortcut_label = ctk.CTkLabel(
-            nav_bar,
-            text="Press Ctrl+K to search",
-            font=ctk.CTkFont(size=11),
-            text_color="#9aa0a6"
+        arrow.pack(side="left", padx=(5, 0))
+
+        # --- Center Search Area ---
+        center_area = ctk.CTkFrame(self.home_frame, fg_color="transparent")
+        center_area.grid(row=2, column=0, sticky="ew", padx=20)
+        center_area.grid_columnconfigure(0, weight=1)
+
+        # Search Bar Container (Rounded, Gray)
+        self.home_search_bar = ctk.CTkFrame(
+            center_area,
+            corner_radius=30,
+            fg_color="#f3f4f6", # Light gray
+            border_width=0,
+            width=700,
+            height=60
         )
-        shortcut_label.grid(row=0, column=2, padx=30, pady=20, sticky="e")
-        
-        # Home search container - centered (large, like Chrome homepage)
-        self.home_search_container = ctk.CTkFrame(main_container, fg_color="transparent")
-        self.home_search_container.pack(fill="x", padx=250, pady=(120, 60))
-        self.home_search_container.grid_columnconfigure(0, weight=1)
-        
-        # Large search bar for home
-        home_search_frame = ctk.CTkFrame(self.home_search_container, corner_radius=30, fg_color="white", border_width=1, border_color="#dfe1e5")
-        home_search_frame.pack(fill="x", ipady=5)
-        home_search_frame.grid_columnconfigure(1, weight=1)
-        
-        # Search icon
-        home_icon_label = ctk.CTkLabel(
-            home_search_frame,
+        self.home_search_bar.pack(pady=(0, 60))
+        self.home_search_bar.pack_propagate(False)
+
+        # Search Icon
+        search_icon = ctk.CTkLabel(
+            self.home_search_bar,
             text="🔍",
             font=ctk.CTkFont(size=20),
-            text_color="#9aa0a6",
-            width=50
+            text_color="#9ca3af"
         )
-        home_icon_label.grid(row=0, column=0, padx=(20, 10), pady=15)
-        
-        # Search entry with autocomplete
+        search_icon.place(x=25, y=15)
+
+        # Entry
         self.search_var = ctk.StringVar()
         self.search_entry = ctk.CTkEntry(
-            home_search_frame,
+            self.home_search_bar,
             textvariable=self.search_var,
-            font=ctk.CTkFont(size=16),
-            placeholder_text="Search articles...",
+            font=ctk.CTkFont(family="Arial", size=18),
+            placeholder_text="Search everything",
+            placeholder_text_color="#9ca3af",
             border_width=0,
             fg_color="transparent",
-            height=50,
-            state="disabled"
+            width=500,
+            height=50
         )
-        self.search_entry.grid(row=0, column=1, sticky="ew", padx=10, pady=15)
+        self.search_entry.place(x=60, y=5)
         self.search_entry.bind("<Return>", lambda e: self._perform_search())
-        self.search_entry.bind("<KeyRelease>", self._on_search_typing)
-        self.search_entry.bind("<FocusIn>", self._on_search_focus_in)
-        self.search_entry.bind("<FocusOut>", self._on_search_focus_out)
-        self.search_entry.bind("<Down>", lambda e: self._navigate_suggestions(1))
-        self.search_entry.bind("<Up>", lambda e: self._navigate_suggestions(-1))
+        self.search_var.trace("w", lambda *args: self._on_home_text_change())
+
+        # Right Icons (Image, Mic)
+        right_icons = ctk.CTkFrame(self.home_search_bar, fg_color="transparent")
+        right_icons.place(relx=1.0, rely=0.5, anchor="e", x=-20)
         
-        # Clear button (appears when text is entered)
-        self.clear_btn = ctk.CTkButton(
-            home_search_frame,
+        img_btn = ctk.CTkLabel(right_icons, text="🖼️", font=ctk.CTkFont(size=20), cursor="hand2")
+        img_btn.pack(side="left", padx=10)
+        mic_btn = ctk.CTkLabel(right_icons, text="🎤", font=ctk.CTkFont(size=20), cursor="hand2")
+        mic_btn.pack(side="left", padx=10)
+
+        # Clear Button (re-using logic)
+        self.home_clear_btn = ctk.CTkButton(
+            self.home_search_bar,
             text="✕",
-            width=30,
-            height=30,
+            width=20,
             fg_color="transparent",
-            hover_color="#f0f0f0",
-            command=self._clear_search,
-            font=ctk.CTkFont(size=14),
-            text_color="#9aa0a6"
+            hover_color="#e5e7eb",
+            text_color="#6b7280",
+            command=self._clear_search
         )
-        self.clear_btn.grid(row=0, column=2, padx=(0, 15))
-        self.clear_btn.grid_remove()
-        self.search_var.trace("w", lambda *args: self._on_search_text_change())
-        
-        # Store reference to home search frame
-        self.home_search_frame = home_search_frame
-        
-        # Search button container
-        button_container = ctk.CTkFrame(self.home_search_container, fg_color="transparent")
-        button_container.pack(fill="x", pady=(30, 0))
-        
-        # Modern search button
-        self.search_button = ctk.CTkButton(
-            button_container,
-            text="Search",
-            command=self._perform_search,
-            font=ctk.CTkFont(size=16, weight="bold"),
-            width=150,
-            height=45,
-            corner_radius=25,
-            fg_color="#4285f4",
-            hover_color="#357ae8",
-            state="disabled"
+        self.home_clear_btn.place(x=640, y=15)
+        self.home_clear_btn.place_forget() # Initially hidden
+
+        # Loading (Hidden)
+        self.loading_label = ctk.CTkLabel(center_area, text="", font=ctk.CTkFont(size=12), text_color="#6b7280")
+        self.loading_label.pack()
+        self.home_progress_bar = ctk.CTkProgressBar(center_area, width=200, height=3, progress_color="#6366f1")
+        self.home_progress_bar.pack(pady=5)
+        self.home_progress_bar.set(0)
+        self.home_progress_bar.pack_forget()
+
+
+        # --- Trending Section ---
+        trending_frame = ctk.CTkFrame(self.home_frame, fg_color="transparent")
+        trending_frame.grid(row=3, column=0, sticky="ew", padx=100)
+        trending_frame.grid_columnconfigure(0, weight=1)
+
+        trending_title = ctk.CTkLabel(
+            trending_frame,
+            text="Today's trending searches",
+            font=ctk.CTkFont(family="Arial", size=24, weight="bold"),
+            text_color="#1f2937"
         )
-        self.search_button.pack()
+        trending_title.pack(pady=(0, 30))
+
+        # Cards Grid
+        cards_grid = ctk.CTkFrame(trending_frame, fg_color="transparent")
+        cards_grid.pack()
         
-        # Loading indicator
-        self.progress_bar = ctk.CTkProgressBar(button_container, width=150, height=4)
-        self.progress_bar.pack(pady=(10, 0))
-        self.progress_bar.set(0)
+        # Mock Data
+        trends = [
+            ("Major Tech Breakthrough", "120K searches", "🎵"),
+            ("Environmental Progress 2025", "110K searches", "🌿"),
+            ("Morning Affirmations", "110K searches", "☀️"),
+            ("Best Spring Travel", "100K searches", "✈️"),
+            ("Home Workouts", "90K searches", "💪"),
+            ("Top Fashion Styles", "80K searches", "👗")
+        ]
+
+        for i, (title, stats, icon) in enumerate(trends):
+            row = i // 3
+            col = i % 3
+            
+            card = ctk.CTkFrame(
+                cards_grid, 
+                fg_color="white", 
+                border_width=1, 
+                border_color="#f3f4f6", 
+                corner_radius=16,
+                width=300,
+                height=120
+            )
+            card.grid(row=row, column=col, padx=15, pady=15)
+            card.pack_propagate(False)
+            
+            # Icon Box
+            icon_box = ctk.CTkFrame(card, fg_color="#f3f4f6", width=60, height=60, corner_radius=12)
+            icon_box.place(x=15, y=15)
+            icon_label = ctk.CTkLabel(icon_box, text=icon, font=ctk.CTkFont(size=24))
+            icon_label.place(relx=0.5, rely=0.5, anchor="center")
+            
+            # Content
+            content_box = ctk.CTkFrame(card, fg_color="transparent")
+            content_box.place(x=90, y=15, relwidth=0.65)
+            
+            t_label = ctk.CTkLabel(
+                content_box, 
+                text=title, 
+                font=ctk.CTkFont(size=14, weight="bold"), 
+                text_color="#1f2937",
+                anchor="w",
+                justify="left",
+                wraplength=180
+            )
+            t_label.pack(anchor="w")
+            
+            stats_pill = ctk.CTkLabel(
+                content_box,
+                text=f"🔍 {stats}",
+                font=ctk.CTkFont(size=11),
+                text_color="#6b7280",
+                fg_color="#f9fafb",
+                corner_radius=10,
+                padx=8,
+                pady=2
+            )
+            stats_pill.pack(anchor="w", pady=(5, 0))
+
+
+        # ==================== RESULTS PAGE ====================
+        self.results_frame = ctk.CTkFrame(self.main_container, fg_color="white")
+        self.results_frame.grid(row=0, column=0, sticky="nsew")
+        self.results_frame.grid_columnconfigure(0, weight=1)
+        self.results_frame.grid_rowconfigure(1, weight=1)
         
-        self.loading_label = ctk.CTkLabel(
-            button_container,
-            text="Initializing...",
-            font=ctk.CTkFont(size=12),
-            text_color="#9aa0a6"
+        # Sticky Header
+        self.header_frame = ctk.CTkFrame(self.results_frame, fg_color="white", height=70, corner_radius=0)
+        self.header_frame.grid(row=0, column=0, sticky="ew")
+        self.header_frame.grid_propagate(False)
+        
+        # Header Logo
+        header_logo = ctk.CTkLabel(
+            self.header_frame,
+            text="SearchEngine 🪐",
+            font=ctk.CTkFont(family="Arial", size=20, weight="bold"),
+            text_color="#6366f1",
+            cursor="hand2"
         )
-        self.loading_label.pack(pady=(5, 0))
-        
-        # Compact search bar in nav (hidden initially, shown when results appear)
-        compact_search_container = ctk.CTkFrame(nav_bar, fg_color="transparent")
-        compact_search_container.grid(row=0, column=1, sticky="ew", padx=20, pady=15)
-        compact_search_container.grid_columnconfigure(1, weight=1)
-        compact_search_container.grid_remove()  # Hidden initially
-        self.compact_search_container = compact_search_container
-        
-        # Compact navigation buttons
-        compact_nav_frame = ctk.CTkFrame(compact_search_container, fg_color="transparent")
-        compact_nav_frame.grid(row=0, column=0, padx=(0, 10))
-        
-        self.compact_back_button = ctk.CTkButton(
-            compact_nav_frame,
-            text="◀",
-            command=self._navigate_back,
-            font=ctk.CTkFont(size=14),
-            width=35,
-            height=35,
-            fg_color="#f1f3f4",
-            hover_color="#e8eaed",
-            text_color="#5f6368",
-            state="disabled"
+        header_logo.place(x=30, y=20)
+        header_logo.bind("<Button-1>", lambda e: self._switch_to_home_mode())
+
+        # Header Search Bar (Clean updated style)
+        self.header_search_bar = ctk.CTkFrame(
+            self.header_frame,
+            corner_radius=20,
+            fg_color="#f3f4f6",
+            border_width=0,
+            width=690,
+            height=44
         )
-        self.compact_back_button.pack(side="left", padx=(0, 5))
-        
-        self.compact_forward_button = ctk.CTkButton(
-            compact_nav_frame,
-            text="▶",
-            command=self._navigate_forward,
-            font=ctk.CTkFont(size=14),
-            width=35,
-            height=35,
-            fg_color="#f1f3f4",
-            hover_color="#e8eaed",
-            text_color="#5f6368",
-            state="disabled"
-        )
-        self.compact_forward_button.pack(side="left")
-        
-        self.compact_search_frame = ctk.CTkFrame(compact_search_container, corner_radius=20, fg_color="white", border_width=1, border_color="#dfe1e5", height=40)
-        self.compact_search_frame.grid(row=0, column=1, sticky="ew")
-        self.compact_search_frame.grid_columnconfigure(1, weight=1)
-        
-        compact_icon = ctk.CTkLabel(
-            self.compact_search_frame,
-            text="🔍",
-            font=ctk.CTkFont(size=14),
-            text_color="#9aa0a6",
-            width=30
-        )
-        compact_icon.grid(row=0, column=0, padx=(10, 5), pady=8)
-        
-        self.compact_search_entry = ctk.CTkEntry(
-            self.compact_search_frame,
+        self.header_search_bar.place(x=220, y=13)
+
+        # Header Entry
+        self.header_entry = ctk.CTkEntry(
+            self.header_search_bar,
             textvariable=self.search_var,
-            font=ctk.CTkFont(size=14),
-            placeholder_text="Search articles...",
+            font=ctk.CTkFont(family="Arial", size=16),
             border_width=0,
             fg_color="transparent",
-            height=35,
-            state="disabled"
+            width=600,
+            height=36
         )
-        self.compact_search_entry.grid(row=0, column=1, sticky="ew", padx=5, pady=8)
-        self.compact_search_entry.bind("<Return>", lambda e: self._perform_search())
-        self.compact_search_entry.bind("<KeyRelease>", self._on_search_typing)
-        self.compact_search_entry.bind("<FocusIn>", self._on_search_focus_in)
-        self.compact_search_entry.bind("<FocusOut>", self._on_search_focus_out)
+        self.header_entry.place(x=20, y=4)
+        self.header_entry.bind("<Return>", lambda e: self._perform_search())
         
-        compact_clear_btn = ctk.CTkButton(
-            self.compact_search_frame,
+        # Header Clear
+        self.header_clear_btn = ctk.CTkButton(
+            self.header_search_bar,
             text="✕",
-            width=25,
-            height=25,
+            width=20,
             fg_color="transparent",
-            hover_color="#f0f0f0",
-            command=self._clear_search,
-            font=ctk.CTkFont(size=12),
-            text_color="#9aa0a6"
+            hover_color="#e5e7eb",
+            text_color="#6b7280",
+            command=self._clear_search
         )
-        compact_clear_btn.grid(row=0, column=2, padx=(0, 10))
-        self.compact_clear_btn = compact_clear_btn
-        
-        # Results container - takes full space when results appear (Chrome-like)
-        self.results_container = ctk.CTkFrame(main_container, fg_color="transparent")
-        self.results_container.pack(fill="both", expand=True, padx=180, pady=(5, 15))
-        self.results_container.grid_columnconfigure(0, weight=1)
-        self.results_container.grid_rowconfigure(1, weight=1)
-        self.results_container.pack_forget()  # Hidden initially
-        
-        # Results info bar
-        self.results_label = ctk.CTkLabel(
-            self.results_container,
-            text="",
-            font=ctk.CTkFont(size=13),
-            text_color="#70757a",
-            anchor="w"
-        )
-        self.results_label.grid(row=0, column=0, sticky="ew", pady=(0, 15))
-        
-        # Scrollable results frame
+        self.header_clear_btn.place(x=650, y=8)
+
+        # Loading Bar (Top of results)
+        self.progress_bar = ctk.CTkProgressBar(self.header_frame, width=150, height=2, progress_color="#6366f1")
+        self.progress_bar.place(relx=0, rely=1, relwidth=1, anchor="sw")
+        self.progress_bar.set(0)
+        self.progress_bar.place_forget() # Hide initially
+
+        # Results Area
         self.results_scrollable_frame = ctk.CTkScrollableFrame(
-            self.results_container,
-            fg_color="transparent",
+            self.results_frame,
+            fg_color="white",
             corner_radius=0
         )
-        self.results_scrollable_frame.grid(row=1, column=0, sticky="nsew")
+        self.results_scrollable_frame.grid(row=1, column=0, sticky="nsew", padx=150) # Left margin like Google
         self.results_scrollable_frame.grid_columnconfigure(0, weight=1)
-        
-        # Empty state (shown in home mode)
-        self.empty_state = ctk.CTkFrame(main_container, fg_color="transparent")
-        self.empty_state.pack(fill="both", expand=True, padx=200, pady=(0, 100))
-        self.empty_state.grid_columnconfigure(0, weight=1)
-        self.empty_state.grid_rowconfigure(0, weight=1)
-        
-        empty_icon = ctk.CTkLabel(
-            self.empty_state,
-            text="🔍",
-            font=ctk.CTkFont(size=64),
-            text_color="#dadce0"
-        )
-        empty_icon.grid(row=0, column=0, pady=(50, 20))
-        
-        empty_text = ctk.CTkLabel(
-            self.empty_state,
-            text="Start typing to search articles",
-            font=ctk.CTkFont(size=18),
-            text_color="#9aa0a6"
-        )
-        empty_text.grid(row=1, column=0, pady=(0, 10))
-        
-        empty_hint = ctk.CTkLabel(
-            self.empty_state,
-            text="Try: 'What is DDoS attack?' or 'What is phishing?'",
-            font=ctk.CTkFont(size=14),
-            text_color="#bdc1c6"
-        )
-        empty_hint.grid(row=2, column=0)
-    
-    def _on_search_text_change(self):
-        """Handle search text changes"""
-        text = self.search_var.get()
-        if text:
-            self.clear_btn.grid()
-            if self.compact_search_frame.winfo_viewable():
-                self.compact_clear_btn.grid()
-        else:
-            self.clear_btn.grid_remove()
-            if self.compact_search_frame.winfo_viewable():
-                self.compact_clear_btn.grid_remove()
-    
-    def _on_search_typing(self, event):
-        """Handle typing in search box"""
-        # Don't show suggestions automatically - they're annoying
-        # User can manually trigger if needed
-        pass
-    
-    def _show_suggestions(self):
-        """Show search suggestions - DISABLED as it's annoying"""
-        # Suggestions are disabled - user can type and search directly
-        pass
-    
+
+        # Initialize in Home Mode
+        self._switch_to_home_mode()
+
     def _hide_suggestions(self):
         """Hide suggestions"""
         if self.suggestion_window:
@@ -583,65 +532,23 @@ class SearchEngineGUI:
     
     def _navigate_suggestions(self, direction):
         """Navigate suggestions with arrow keys"""
-        # Implementation for arrow key navigation
         pass
-    
-    def _on_search_focus_in(self, event):
-        """Handle search focus in"""
-        # Change border to blue for both search bars
-        for frame in [self.home_search_frame, self.compact_search_frame]:
-            if frame.winfo_exists():
-                frame.configure(border_color="#4285f4", border_width=2)
-        # Don't show suggestions automatically - user can type to see them
-    
-    def _on_search_focus_out(self, event):
-        """Handle search focus out"""
-        # Reset border for both search bars
-        for frame in [self.home_search_frame, self.compact_search_frame]:
-            if frame.winfo_exists():
-                frame.configure(border_color="#dfe1e5", border_width=1)
-        # Hide suggestions if they exist
-        self._hide_suggestions()
+
+    def _on_home_text_change(self, *args):
+        if self.search_var.get():
+            self.home_clear_btn.place(x=540, y=10)
+        else:
+            self.home_clear_btn.place_forget()
+
+    def _switch_to_home_mode(self):
+        self.results_frame.grid_remove()
+        self.home_frame.grid()
+        self.search_entry.focus()
     
     def _switch_to_results_mode(self):
-        """Switch to results mode - compact search bar, focus on results"""
-        # Hide home search container
-        self.home_search_container.pack_forget()
-        self.empty_state.pack_forget()
-        
-        # Show compact search container in nav
-        self.compact_search_container.grid()
-        
-        # Show results container
-        self.results_container.pack(fill="both", expand=True, padx=180, pady=(5, 15))
-        
-        # Update navigation buttons
-        self._update_navigation_buttons()
-        
-        # Update shortcut hint
-        for widget in self.root.winfo_children():
-            for child in widget.winfo_children():
-                if isinstance(child, ctk.CTkFrame):
-                    for grandchild in child.winfo_children():
-                        if isinstance(grandchild, ctk.CTkLabel) and "Ctrl+K" in str(grandchild.cget("text")):
-                            grandchild.configure(text="")
-    
-    def _switch_to_home_mode(self):
-        """Switch to home mode - large centered search"""
-        # Hide compact search container
-        self.compact_search_container.grid_remove()
-        
-        # Hide results container
-        self.results_container.pack_forget()
-        
-        # Show home search container
-        self.home_search_container.pack(fill="x", padx=250, pady=(120, 60))
-        
-        # Show empty state
-        self.empty_state.pack(fill="both", expand=True, padx=200, pady=(0, 100))
-        
-        # Update navigation buttons
-        self._update_navigation_buttons()
+        self.home_frame.grid_remove()
+        self.results_frame.grid()
+        self.header_entry.focus()
     
     def _perform_search(self):
         """Perform search using TF-IDF"""
@@ -827,40 +734,30 @@ class SearchEngineGUI:
         return "break"
     
     def _update_navigation_buttons(self):
-        """Update back/forward button states for both home and compact navigation"""
+        """Update back/forward button states"""
         can_back = self.navigation_history.can_go_back()
         can_forward = self.navigation_history.can_go_forward()
         
-        # Update home navigation buttons
-        if can_back:
-            self.back_button.configure(state="normal", fg_color="#4285f4", text_color="white", hover_color="#357ae8")
-        else:
-            self.back_button.configure(state="disabled", fg_color="#f1f3f4", text_color="#5f6368", hover_color="#e8eaed")
-        
-        if can_forward:
-            self.forward_button.configure(state="normal", fg_color="#4285f4", text_color="white", hover_color="#357ae8")
-        else:
-            self.forward_button.configure(state="disabled", fg_color="#f1f3f4", text_color="#5f6368", hover_color="#e8eaed")
-        
-        # Update compact navigation buttons
+        # We only have compact navigation buttons in the new UI
         if hasattr(self, 'compact_back_button'):
             if can_back:
-                self.compact_back_button.configure(state="normal", fg_color="#4285f4", text_color="white", hover_color="#357ae8")
+                self.compact_back_button.configure(state="normal", fg_color="transparent", text_color="#5f6368", hover_color="#f1f3f4")
             else:
-                self.compact_back_button.configure(state="disabled", fg_color="#f1f3f4", text_color="#5f6368", hover_color="#e8eaed")
+                self.compact_back_button.configure(state="disabled", fg_color="transparent", text_color="#dadce0", hover_color="#ffffff")
         
         if hasattr(self, 'compact_forward_button'):
             if can_forward:
-                self.compact_forward_button.configure(state="normal", fg_color="#4285f4", text_color="white", hover_color="#357ae8")
+                self.compact_forward_button.configure(state="normal", fg_color="transparent", text_color="#5f6368", hover_color="#f1f3f4")
             else:
-                self.compact_forward_button.configure(state="disabled", fg_color="#f1f3f4", text_color="#5f6368", hover_color="#e8eaed")
-    
+                self.compact_forward_button.configure(state="disabled", fg_color="transparent", text_color="#dadce0", hover_color="#ffffff")
+
     def _perform_search_with_query(self, query: str):
         """Perform search with a specific query (used for navigation)"""
         if self.is_indexing:
             return
         
         self.current_query = query
+        self.search_var.set(query)
         self._hide_suggestions()
         self._show_search_loading()
         
@@ -873,9 +770,115 @@ class SearchEngineGUI:
         
         thread = threading.Thread(target=search, daemon=True)
         thread.start()
-    
+
+    def _show_search_loading(self):
+        """Show loading state during search"""
+        if hasattr(self, 'progress_bar'):
+             self.progress_bar.place(relx=0, rely=1, relwidth=1, anchor="sw")
+             self.progress_bar.start()
+        
+        # Switch to results view but show nothing yet?
+        # Or just show "Searching..." in title
+        self._switch_to_results_mode()
+        for widget in self.results_scrollable_frame.winfo_children():
+            widget.destroy()
+
+    def _clear_results(self):
+        """Clear search results"""
+        self.current_query = ""
+        self.current_results = []
+        self.search_var.set("")
+        
+        for widget in self.results_scrollable_frame.winfo_children():
+            widget.destroy()
+            
+        self._switch_to_home_mode()
+        self._hide_suggestions()
+        
+        if hasattr(self, 'progress_bar'):
+            self.progress_bar.stop()
+            self.progress_bar.place_forget()
+
+    def _display_results(self, query: str, ranked_results, elapsed_time, suggestion=None):
+        """Display search results in modern Google format"""
+        self._switch_to_results_mode()
+        
+        # Stop loading
+        if hasattr(self, 'progress_bar'):
+            self.progress_bar.stop()
+            self.progress_bar.place_forget()
+        
+        # Clear previous results
+        for widget in self.results_scrollable_frame.winfo_children():
+            widget.destroy()
+        
+        # "Did you mean" suggestion
+        if suggestion:
+            suggestion_frame = ctk.CTkFrame(self.results_scrollable_frame, fg_color="transparent")
+            suggestion_frame.pack(fill="x", pady=(0, 20), anchor="w")
+            
+            did_mean_label = ctk.CTkLabel(
+                suggestion_frame,
+                text="Did you mean: ",
+                font=ctk.CTkFont(family="Arial", size=16, weight="normal"),
+                text_color="#d93025" # Google red for caution/correction
+            )
+            did_mean_label.pack(side="left")
+            
+            suggestion_link = ctk.CTkLabel(
+                suggestion_frame,
+                text=suggestion,
+                font=ctk.CTkFont(family="Arial", size=16, weight="bold", italic=True),
+                text_color="#1a0dab", # Google blue link
+                cursor="hand2"
+            )
+            suggestion_link.pack(side="left")
+            suggestion_link.bind("<Button-1>", lambda e: self._select_suggestion(suggestion))
+        
+        # Stats bar (About X results)
+        stats_label = ctk.CTkLabel(
+            self.results_scrollable_frame,
+            text=f"About {len(ranked_results)} results ({elapsed_time:.2f} seconds)",
+            font=ctk.CTkFont(family="Arial", size=14),
+            text_color="#70757a"
+        )
+        stats_label.pack(anchor="w", pady=(0, 20))
+
+        if not ranked_results:
+            no_results = ctk.CTkFrame(self.results_scrollable_frame, fg_color="transparent")
+            no_results.pack(pady=40, anchor="w")
+            
+            text = ctk.CTkLabel(
+                no_results,
+                text=f"Your search - {query} - did not match any documents.",
+                font=ctk.CTkFont(family="Arial", size=16),
+                text_color="#202124"
+            )
+            text.pack(anchor="w", pady=(0, 10))
+            
+            hint = ctk.CTkLabel(
+                no_results,
+                text="Suggestions:\n\n• Make sure that all words are spelled correctly.\n• Try different keywords.\n• Try more general keywords.",
+                font=ctk.CTkFont(family="Arial", size=14),
+                text_color="#202124",
+                justify="left"
+            )
+            hint.pack(anchor="w")
+            return
+        
+        # Results
+        for idx, (article, score) in enumerate(ranked_results, 1):
+             card = ResultCard(
+                self.results_scrollable_frame,
+                article,
+                score,
+                idx,
+                lambda a, pos=idx-1: self._on_article_click(a, pos) # correct closure
+            )
+             card.pack(fill="x", pady=(0, 25))
+
     def _on_article_click(self, article, position):
-        """Handle article click - open in different viewer based on position"""
+        """Handle article click"""
         # Open different viewer based on position
         if position == 0:
             ArticleViewer1(self.root, article)
