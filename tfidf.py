@@ -10,7 +10,11 @@ class TFIDFRanker:
         self.indexer = indexer
         self.idf_cache: Dict[str, float] = {}  # Cache IDF values
         self._calculate_idf()
-    
+    def update_idf(self) -> None:
+        """Recalculate IDF values (useful after adding new articles)"""
+        self.idf_cache.clear()
+        self._calculate_idf()
+
     def _calculate_idf(self) -> None:
         total_docs = self.indexer.total_articles
         

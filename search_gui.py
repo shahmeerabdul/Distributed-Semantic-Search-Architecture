@@ -9,6 +9,8 @@ from tfidf import TFIDFRanker
 from article_viewers import ArticleViewer1, ArticleViewer2, ArticleViewer3
 from data_structures import Stack, Queue, BinarySearchTree, Graph
 from navigation import NavigationHistory
+from web_searcher import WebSearcher
+from crawler3 import SimpleCrawler
 
  
 ctk.set_appearance_mode("light")
@@ -108,6 +110,8 @@ class SearchEngineGUI:
         self.indexer = None
         self.ranker = None
         self.is_indexing = True
+        self.web_searcher = WebSearcher()
+        self.crawler = SimpleCrawler()
         
         # Query history using deque
         self.query_history = deque(maxlen=10)
@@ -581,9 +585,41 @@ class SearchEngineGUI:
         # Perform search in background
         def search():
             start_time = time.time()
-            ranked_results, suggestion = self.ranker.rank_articles(query, top_k=15, min_score=0.001)
-            elapsed = time.time() - start_time
-            self.root.after(0, lambda: self._display_results(query, ranked_results, elapsed, suggestion))
+            
+            # --- Real-Time Web Search ---
+            # Update UI from thread (careful with Tkinter)
+            self.root.after(0, lambda: self.results_label.configure(text="Searching the web..."))
+            
+            try:
+                # Fetch URLs from Google/Web
+                urls = self.web_searcher.get_search_results(query, limit=3)
+                
+                if urls:
+                    self.root.after(0, lambda: self.results_label.configure(text=f"Found {len(urls)} results. Crawling content..."))
+                    
+                    # Crawl content
+                    new_articles = self.crawler.crawl_urls(urls)
+                    
+                    if new_articles:
+                        self.root.after(0, lambda: self.results_label.configure(text=f"Indexing {len(new_articles)} new articles..."))
+                        
+                        # Add to Indexer
+                        if self.indexer:
+                            self.indexer.add_articles(new_articles)
+                            
+                            # Update Ranker IDF
+                            if self.ranker:
+                                self.ranker.update_idf()
+            except Exception as e:
+                print(f"Web search failed: {e}")
+            
+            # --- Final Ranking ---
+            self.root.after(0, lambda: self.results_label.configure(text="Ranking results..."))
+            
+            if self.ranker:
+                ranked_results, suggestion = self.ranker.rank_articles(query, top_k=15, min_score=0.001)
+                elapsed = time.time() - start_time
+                self.root.after(0, lambda: self._display_results(query, ranked_results, elapsed, suggestion))
         
         thread = threading.Thread(target=search, daemon=True)
         thread.start()

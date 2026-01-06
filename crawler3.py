@@ -2,7 +2,10 @@ import json
 import requests
 from datetime import datetime
 from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup
 import time
+import concurrent.futures
+from typing import List, Dict
 
 class SimpleCrawler:
     def __init__(self):
@@ -41,6 +44,35 @@ class SimpleCrawler:
             print(f"Error fetching {url}: {e}")
             return "Error fetching page", f"Error details: {str(e)}"
     
+    def crawl_urls(self, urls: List[str]) -> List[Dict]:
+        """Crawl a list of URLs concurrently"""
+        results = []
+        
+        # Use ThreadPoolExecutor for concurrent fetching
+        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+            # Create a dictionary to map futures to URLs
+            future_to_url = {executor.submit(self.get_page_info, url): url for url in urls}
+            
+            for future in concurrent.futures.as_completed(future_to_url):
+                url = future_to_url[future]
+                try:
+                    title, content = future.result()
+                    
+                    # Filter out failed fetches
+                    if title and content and not title.startswith("Error fetching"):
+                        # Generate a temporary ID (will be handled by indexer properly later)
+                        # We use timestamp for uniqueness in this batch
+                        results.append({
+                            "url": url,
+                            "title": title,
+                            "content": content,
+                            "timestamp": datetime.utcnow().isoformat() + 'Z'
+                        })
+                except Exception as exc:
+                    print(f'{url} generated an exception: {exc}')
+                    
+        return results
+
     def crawl_topic(self, topic_name, queries, urls):
         """Process URLs for a specific topic"""
         print(f"\nProcessing: {topic_name}")

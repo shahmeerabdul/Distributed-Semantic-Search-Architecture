@@ -1,6 +1,7 @@
  
 import json
 import re
+import hashlib
 from collections import deque, OrderedDict, defaultdict, Counter, namedtuple
 from typing import List, Dict, Set, Tuple, Optional
 from data_structures import Stack, Queue, BinarySearchTree, Graph, TopicTree, Trie
@@ -219,4 +220,64 @@ class ArticleIndexer:
         if result:
             return result.data
         return None
+
+    def add_articles(self, articles_data: List[Dict]) -> int:
+        """
+        Dynamically add new articles to the index.
+        Returns the number of new articles added.
+        """
+        new_count = 0
+        
+        for data in articles_data:
+            # Generate ID if missing
+            unique_id = data.get('unique_id')
+            if not unique_id:
+                 id_hash = hashlib.md5(data['url'].encode()).hexdigest()[:10]
+                 unique_id = f"web_{id_hash}"
+                 
+            if unique_id in self.articles_dict:
+                continue # Skip duplicates
+            
+            topic = data.get('topic', 'Web Search')
+            
+            article = Article(
+                unique_id=unique_id,
+                title=data['title'],
+                content=data['content'],
+                url=data['url'],
+                timestamp=data.get('timestamp', ''),
+                topic=topic
+            )
+            
+            # --- Update Data Structures ---
+            self.articles_list.append(article)
+            self.articles_dict[unique_id] = article
+            self.article_order[unique_id] = article
+            self.total_articles += 1
+            
+            # BST
+            self.article_bst.insert(article)
+            
+            # Topic Tree
+            self.topic_tree.add_topic(topic, articles=[article])
+            
+            # Graph Node
+            self.article_graph.add_vertex(unique_id)
+            
+            # Inverted Index & Trie
+            text = f"{article.title} {article.content}"
+            words = self._tokenize(text)
+            
+            word_counter = Counter(words)
+            self.article_word_counts[unique_id] = word_counter
+            
+            for word in words:
+                self.word_to_articles[word].add(unique_id)
+                if word not in self.all_words_set:
+                    self.all_words_set.add(word)
+                    self.vocabulary_trie.insert(word) 
+            
+            new_count += 1
+            
+        return new_count
 
